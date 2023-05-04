@@ -57,11 +57,11 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     }
 
     fun btnAuStart_click(view: View) {
-        setPlaybackEnabled(true) 
+        AudioPlayer.setPlaybackEnabled(true)
     }
 
     fun btnAuStop_click(view: View) {
-        setPlaybackEnabled(false) 
+        AudioPlayer.setPlaybackEnabled(false)
     }
 
     private fun setDefaultStreamValues(context: Context) {
