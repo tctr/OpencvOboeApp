@@ -146,7 +146,7 @@ static SimpleNoiseMaker sPlayer;
  * Native (JNI) implementation of AudioPlayer.startAudiostreamNative()
  */
 extern "C" JNIEXPORT jint JNICALL
-Java_com_tctr_opencvoboeapp_AudioPlayer_startAudioStreamNative(
+Java_com_tctr_opencvoboeapp_MainActivity_startAudioStreamNative(
         JNIEnv * /* env */, jobject) {
     __android_log_print(ANDROID_LOG_INFO, TAG, "%s", __func__); 
 	
@@ -161,7 +161,7 @@ Java_com_tctr_opencvoboeapp_AudioPlayer_startAudioStreamNative(
  * Native (JNI) implementation of AudioPlayer.stopAudioStreamNative()
  */
 extern "C" JNIEXPORT jint JNICALL
-Java_com_tctr_opencvoboeapp_AudioPlayer_stopAudioStreamNative(
+Java_com_tctr_opencvoboeapp_MainActivity_stopAudioStreamNative(
         JNIEnv * /* env */, jobject) {
     __android_log_print(ANDROID_LOG_INFO, TAG, "%s", __func__);
     // We need to close() even if the stop() fails because we need to delete the resources.

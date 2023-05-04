@@ -14,7 +14,6 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.os.Build;
 import android.util.Log;
-//import androidx.lifecycle.ProcessLifecycleOwner
 
 class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     var srcBitmap: Bitmap? = null
@@ -57,11 +56,11 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     }
 
     fun btnAuStart_click(view: View) {
-        AudioPlayer.setPlaybackEnabled(true)
+        startAudioStreamNative()
     }
 
     fun btnAuStop_click(view: View) {
-        AudioPlayer.setPlaybackEnabled(false)
+        stopAudioStreamNative()
     }
 
     private fun setDefaultStreamValues(context: Context) {
@@ -85,8 +84,10 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     external fun blur(bitmapIn: Bitmap, bitmapOut: Bitmap, sigma: Float)
     external fun flip(bitmapIn: Bitmap, bitmapOut: Bitmap)
 
-    companion object {
+    private external fun startAudioStreamNative() : Int
+    private external fun stopAudioStreamNative() : Int
 
+    companion object {
         // ** IMPORTANT ** used to load the 'native-lib' library on application startup.
         init {
             System.loadLibrary("native-lib")
