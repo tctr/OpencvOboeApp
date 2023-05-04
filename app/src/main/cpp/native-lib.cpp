@@ -16,8 +16,9 @@ static const char *TAG = "MinimalOboeJNI";
 
 #include <android/log.h>
 
-#include <SimpleNoiseMaker.h>
-//
+#include "SimpleNoiseMaker.h"
+
+using namespace oboe;
 
 
 void bitmapToMat(JNIEnv *env, jobject bitmap, Mat& dst, jboolean needUnPremultiplyAlpha)
@@ -144,7 +145,7 @@ static SimpleNoiseMaker sPlayer;
 /**
  * Native (JNI) implementation of AudioPlayer.startAudiostreamNative()
  */
-extern "C" JNIEXPORT void JNICALL
+extern "C" JNIEXPORT jint JNICALL
 Java_com_tctr_opencvoboeapp_AudioPlayer_startAudioStreamNative(
         JNIEnv * /* env */, jobject) {
     __android_log_print(ANDROID_LOG_INFO, TAG, "%s", __func__); 
@@ -159,8 +160,8 @@ Java_com_tctr_opencvoboeapp_AudioPlayer_startAudioStreamNative(
 /**
  * Native (JNI) implementation of AudioPlayer.stopAudioStreamNative()
  */
-extern "C" JNIEXPORT void JNICALL
-Java_com_example_opencvoboeapp_AudioPlayer_stopAudioStreamNative(
+extern "C" JNIEXPORT jint JNICALL
+Java_com_tctr_opencvoboeapp_AudioPlayer_stopAudioStreamNative(
         JNIEnv * /* env */, jobject) {
     __android_log_print(ANDROID_LOG_INFO, TAG, "%s", __func__);
     // We need to close() even if the stop() fails because we need to delete the resources.

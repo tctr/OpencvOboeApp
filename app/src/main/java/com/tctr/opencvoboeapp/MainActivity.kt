@@ -1,32 +1,28 @@
 package com.tctr.opencvoboeapp
 
 
-import androidx.appcompat.app.AppCompatActivity
-
-import android.content.Context;
-import android.media.AudioManager;
-import android.os.Bundle
-import android.os.Build;
-
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Bundle
 import android.view.View
 import android.widget.SeekBar
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Float.max
 
+import android.content.Context;
+import android.media.AudioManager;
+import android.os.Build;
+import android.util.Log;
+//import androidx.lifecycle.ProcessLifecycleOwner
 
 class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
-
     var srcBitmap: Bitmap? = null
     var dstBitmap: Bitmap? = null
 
-    private native long startEngine(int[] cpuIds);
-    private native void stopEngine(long engineHandle);
-    private static native void native_setDefaultStreamValues(int sampleRate, int framesPerBurst);
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         setDefaultStreamValues(this);
 
         // Load the original image
@@ -38,10 +34,6 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
         imageView.setImageBitmap(dstBitmap)
 
         sldSigma.setOnSeekBarChangeListener(this)
-	
-	// Minimal Oboe : Let our AudioPlayer observe lifecycle events for the application so when it goes into the
-        // background we can stop audio playback.
-        ProcessLifecycleOwner.get().lifecycle.addObserver(AudioPlayer)
     }
 
     fun doBlur() {
@@ -67,10 +59,19 @@ class MainActivity : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
     fun btnAuStart_click(view: View) {
         setPlaybackEnabled(true) 
     }
-    
-    
+
     fun btnAuStop_click(view: View) {
         setPlaybackEnabled(false) 
+    }
+
+    private fun setDefaultStreamValues(context: Context) {
+        val myAudioMgr = context.getSystemService(AUDIO_SERVICE) as AudioManager
+        val sampleRateStr = myAudioMgr.getProperty(AudioManager.PROPERTY_OUTPUT_SAMPLE_RATE)
+        val defaultSampleRate = sampleRateStr.toInt()
+        val framesPerBurstStr =
+            myAudioMgr.getProperty(AudioManager.PROPERTY_OUTPUT_FRAMES_PER_BUFFER)
+        val defaultFramesPerBurst = framesPerBurstStr.toInt()
+        //native_setDefaultStreamValues(defaultSampleRate, defaultFramesPerBurst)
     }
 
     override fun onStartTrackingTouch(seekBar: SeekBar?) {}

@@ -5,7 +5,7 @@ static const char *TAG = "SimpleNoiseMaker";
 
 #include <android/log.h>
 
-#include <SimpleNoiseMaker.h>
+#include "SimpleNoiseMaker.h"
 
 using namespace oboe;
 
