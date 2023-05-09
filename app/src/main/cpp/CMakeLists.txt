@@ -16,8 +16,7 @@ set(OpenCV_DIR $ENV{OPENCV_ANDROID}/sdk/native/jni)
 find_package(OpenCV REQUIRED)
 
 
-#set (OBOE_DIR $ENV{OBOE_ANDROID})
-set (OBOE_DIR /Users/thierry/Dev/AndroidServer/oboe)
+set (OBOE_DIR ../../../../../oboe)
 add_subdirectory (${OBOE_DIR} ./oboe)
 include_directories (${OBOE_DIR}/include)
 #find_package (oboe REQUIRED CONFIG)
